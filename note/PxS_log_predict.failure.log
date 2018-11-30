@@ -1,0 +1,43 @@
+[SETTINGS] {
+  "date": "2018/11/30 16:53:39",
+  "date_iso": "2018-11-30T16:53:39.492464",
+  "params": null,
+  "system": {
+    "nodename": "frost",
+    "machine": "x86_64",
+    "platform": "Linux-4.4.0-139-generic-x86_64-with-debian-stretch-sid",
+    "processor": "x86_64",
+    "version": "#165-Ubuntu SMP Wed Oct 24 10:58:50 UTC 2018",
+    "system": "Linux",
+    "cpu_count": 8,
+    "cpu_times": {
+      "user": 8624.72,
+      "system": 766.26,
+      "idle": 199666.36,
+      "nice": 31.84
+    },
+    "cpu_percent": 42.9,
+    "virtual_memory": {
+      "total": 33618411520,
+      "available": 23893790720,
+      "percent": 28.9,
+      "used": 8824598528,
+      "free": 16355823616
+    }
+  },
+  "process": {
+    "username": "elia",
+    "cwd": "/cw/dtailocal/repos/PxS/note",
+    "create_time": 1543593217.84,
+    "cpu_times": {
+      "user": 0.76,
+      "system": 0.12
+    }
+  },
+  "logfile": "PxS_log_predict",
+  "max_time": 600.0,
+  "command": "./backend/predict -c config.json"
+}
+[INFO] cmd:./backend/predict -c config.json; cwd:/cw/dtailocal/repos/PxS/note
+[ERROR] [Errno 2] No such file or directory: './backend/predict'
+[ERROR] No stdout is set to track

@@ -1,0 +1,12 @@
+{
+    "test_fname": "/cw/dtailocal/repos/PxS/note/../resc/test.csv",
+    "out_fname": "/cw/dtailocal/repos/PxS/note/out.csv",
+    "model_fname": "/cw/dtailocal/repos/PxS/note/model.xdsl",
+    "miss_idx": [
+        0,
+        1
+    ],
+    "targ_idx": [
+        14
+    ]
+}

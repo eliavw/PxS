@@ -1,0 +1,47 @@
+[SETTINGS] {
+  "date": "2018/11/30 16:49:38",
+  "date_iso": "2018-11-30T16:49:38.947816",
+  "params": null,
+  "system": {
+    "nodename": "frost",
+    "machine": "x86_64",
+    "platform": "Linux-4.4.0-139-generic-x86_64-with-debian-stretch-sid",
+    "processor": "x86_64",
+    "version": "#165-Ubuntu SMP Wed Oct 24 10:58:50 UTC 2018",
+    "system": "Linux",
+    "cpu_count": 8,
+    "cpu_times": {
+      "user": 8499.39,
+      "system": 750.78,
+      "idle": 197893.32,
+      "nice": 31.84
+    },
+    "cpu_percent": 59.1,
+    "virtual_memory": {
+      "total": 33618411520,
+      "available": 23982747648,
+      "percent": 28.7,
+      "used": 8760774656,
+      "free": 16444940288
+    }
+  },
+  "process": {
+    "username": "elia",
+    "cwd": "/cw/dtailocal/repos/PxS/note",
+    "create_time": 1543592977.37,
+    "cpu_times": {
+      "user": 0.73,
+      "system": 0.09
+    }
+  },
+  "logfile": "/cw/dtailocal/repos/PxS/note/PxS_log_fit",
+  "max_time": 600.0,
+  "command": "./backend/fit -c /cw/dtailocal/repos/PxS/note/config.json"
+}
+[INFO] cmd:./backend/fit -c /cw/dtailocal/repos/PxS/note/config.json; cwd:/cw/dtailocal/repos/PxS/src/PythonXSmile
+[INFO] Start: Run process
+[INFO] Write log to /cw/dtailocal/repos/PxS/note/PxS_log_fit.running.log
+Configfile: '/cw/dtailocal/repos/PxS/note/config.json'
+[INFO] Process ended (returncode 0)
+[INFO] Finished: Run process 6.009 seconds
+[WARNING] Exit:finished; Returncode:0; Time:6.00950
