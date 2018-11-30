@@ -1,5 +1,5 @@
 # PxS
-A `scikit-learn`-like interface for BayesFusion's SMILE.
+A `scikit-learn`-like interface for BayesFusion's `SMILE.`
 
 ## Introduction
 BayesFusion's SMILE engine is one of the most highly respected packages for
