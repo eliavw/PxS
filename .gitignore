@@ -165,3 +165,7 @@ modules.xml
 
 # End of https://www.gitignore.io/api/cmake,clion,pycharm+all,jupyternotebook,jupyternotebooks
 
+## Own edits
+
+prod/
+
