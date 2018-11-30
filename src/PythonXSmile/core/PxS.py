@@ -72,10 +72,10 @@ class PxS(object):
             json.dump(cfg, f, indent=4)
         return
 
-    def drop_log(self, log_fname, cwd):
+    def drop_log(self, log_fname):
 
-        success_log_fnames = [os.path.join(cwd, f) for f in os.listdir(cwd)
-                              if log_fname in f
+        success_log_fnames = [f for f in os.listdir(self.cwd)
+                              if os.path.basename(log_fname) in f
                               if "success" in f]
 
         for f in success_log_fnames:
@@ -123,7 +123,7 @@ class PxS(object):
 
         if p == 0:
             os.remove(cfg_fname)
-            self.drop_log(log_fname, cwd)
+            self.drop_log(log_fname)
 
         return p
 
@@ -142,7 +142,7 @@ class PxS(object):
         if cwd is None:
             cwd = self.cwd
         if log_fname is None:
-            log_fname = self.default_log_fn + "_fit"
+            log_fname = self.default_log_fn + "_predict"
         if timeout is None:
             timeout = self.default_to
         if cfg_fname is None:
@@ -172,10 +172,10 @@ class PxS(object):
 
         if p == 0:
             os.remove(cfg_fname)
-            self.drop_log(log_fname, cwd)
+            #self.drop_log(log_fname)
 
             result = pd.read_csv(cfg["out_fname"], header=None)
-            # os.remove(cfg["out_fname"])
+            #os.remove(cfg["out_fname"])
 
             return result.values
         else:
