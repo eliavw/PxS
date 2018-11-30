@@ -1,0 +1,47 @@
+[SETTINGS] {
+  "date": "2018/11/29 14:57:44",
+  "date_iso": "2018-11-29T14:57:44.757260",
+  "params": null,
+  "system": {
+    "nodename": "frost",
+    "machine": "x86_64",
+    "platform": "Linux-4.4.0-139-generic-x86_64-with-debian-stretch-sid",
+    "processor": "x86_64",
+    "version": "#165-Ubuntu SMP Wed Oct 24 10:58:50 UTC 2018",
+    "system": "Linux",
+    "cpu_count": 8,
+    "cpu_times": {
+      "user": 7136.52,
+      "system": 923.56,
+      "idle": 182613.28,
+      "nice": 19.58
+    },
+    "cpu_percent": 26.2,
+    "virtual_memory": {
+      "total": 33618411520,
+      "available": 19898007552,
+      "percent": 40.8,
+      "used": 12772872192,
+      "free": 12389539840
+    }
+  },
+  "process": {
+    "username": "elia",
+    "cwd": "/cw/dtailocal/Dropbox/Files/KUL/research/codebases/homework/libs/PxS2",
+    "create_time": 1543499863.79,
+    "cpu_times": {
+      "user": 0.3,
+      "system": 0.01
+    }
+  },
+  "logfile": "prod/log.txt",
+  "max_time": 360.0,
+  "command": "./resc/fit -c resc/config.json"
+}
+[INFO] cmd:./resc/fit -c resc/config.json; cwd:/cw/dtailocal/Dropbox/Files/KUL/research/codebases/homework/libs/PxS2
+[INFO] Start: Run process
+[INFO] Write log to prod/log.txt.running.log
+Configfile: 'resc/config.json'
+[INFO] Process ended (returncode 0)
+[INFO] Finished: Run process 6.209 seconds
+[WARNING] Exit:finished; Returncode:0; Time:6.20918
