@@ -1,0 +1,15 @@
+{
+    "miss_idx": [
+        1,
+        2
+    ],
+    "model_fname": "resc/model.xdsl",
+    "targ_idx": [
+        5,
+        14,
+        15
+    ],
+    "test_fname": "resc/test.csv",
+    "train_fname": "resc/train.csv",
+    "out_fname": "resc/result.csv"
+}
