@@ -1,12 +1,12 @@
 # PxS
-A scikit-learn like interface for BayesFusion's SMILE.
+A `scikit-learn`-like interface for BayesFusion's `SMILE`.
 
 ## Introduction
 BayesFusion's SMILE engine is one of the most highly respected packages for
 Bayesian Modelling and offers a limited-in-time academic license. 
 
-The package is writte in C/C++ and is closed-soruce, but headers are available.
-This project is about creating a convenient, python-based, front-end for the 
+The package is written in `C/C++` and is closed-source, but headers are available.
+This project is all about creating a convenient, `python`-based, front-end for the 
 package, inspired by scikit-learn standards.
 
 There's two approaches being tried here. One relies on command-line interaction
