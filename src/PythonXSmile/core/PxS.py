@@ -1,6 +1,7 @@
 import json
 import os
 import pandas as pd
+from timeit import default_timer
 
 from os.path import abspath, dirname
 
@@ -32,6 +33,8 @@ class PxS(object):
 
     def __init__(self):
         self.cwd = os.getcwd()
+        self.s = {'model_data': {'ind_time': -1,
+                                 'inf_time': -1}}
         return
 
     def gen_fit_cfg(self, train_fname, model_fname=None):
@@ -39,7 +42,8 @@ class PxS(object):
         if model_fname is None:
             model_fname = self.default_model_fname
 
-        model_fname = os.path.join(self.cwd, model_fname)
+        if not os.path.isabs(model_fname):
+            model_fname = os.path.join(self.cwd, model_fname)
 
         cfg = {"train_fname": train_fname,
                "model_fname": model_fname}
@@ -53,8 +57,10 @@ class PxS(object):
         if model_fname is None:
             model_fname = self.default_model_fname
 
-        out_fname = os.path.join(self.cwd, out_fname)
-        model_fname = os.path.join(self.cwd, model_fname)
+        if not os.path.isabs(out_fname):
+            out_fname = os.path.join(self.cwd, out_fname)
+        if not os.path.isabs(model_fname):
+            model_fname = os.path.join(self.cwd, model_fname)
         
         cfg = {"test_fname":    train_fname,
                "out_fname":     out_fname,
@@ -89,7 +95,8 @@ class PxS(object):
             cfg_fname=None,
             log_fname=None,
             timeout=None,
-            cwd=None):
+            cwd=None,
+            **kwargs):
 
         # Parse arguments
         if cwd is None:
@@ -101,9 +108,12 @@ class PxS(object):
         if cfg_fname is None:
             cfg_fname = self.default_cfg_fn
 
-        cfg_fname = os.path.join(cwd, cfg_fname)
-        log_fname = os.path.join(cwd, log_fname)
-        train_fname = os.path.join(cwd, train_fname)
+        if not os.path.isabs(cfg_fname):
+            cfg_fname = os.path.join(cwd, cfg_fname)
+        if not os.path.isabs(log_fname):
+            log_fname = os.path.join(cwd, log_fname)
+        if not os.path.isabs(train_fname):
+            train_fname = os.path.join(cwd, train_fname)
 
         # Config
         cfg = self.gen_fit_cfg(train_fname, model_fname=model_fname)
@@ -116,16 +126,29 @@ class PxS(object):
                                script_prefix="",
                                config_prefix="-c")
 
-        print(cmd)
+        msg = """
+        Generated command: {}
+        """.format(cmd)
+        debug_print(msg, V=VERBOSITY)
 
         # Run
+        tick = default_timer()
         p = run_process(cmd, monitors=mon, cwd=self.pxs_dir)
+        tock = default_timer()
+        self.s['model_data']['ind_time'] = tock - tick
 
-        if p == 0:
+        try:
             os.remove(cfg_fname)
             self.drop_log(log_fname)
 
-        return p
+            return p
+        except FileNotFoundError as e:
+            msg = """
+            Error:                                  {}
+            Return code from .backend/predict:      {}                         
+            """.format(e.args[-1], p)
+            print(msg)
+            return p
 
     def predict(self,
                 test_fname,
@@ -135,8 +158,10 @@ class PxS(object):
                 model_fname=None,
                 cfg_fname=None,
                 log_fname=None,
+                q_idx = None,
                 timeout=None,
-                cwd=None):
+                cwd=None,
+                **kwargs):
 
         # Parse arguments
         if cwd is None:
@@ -148,9 +173,16 @@ class PxS(object):
         if cfg_fname is None:
             cfg_fname = self.default_cfg_fn
 
-        cfg_fname = os.path.join(cwd, cfg_fname)
-        log_fname = os.path.join(cwd, log_fname)
-        test_fname = os.path.join(cwd, test_fname)
+        if not os.path.isabs(cfg_fname):
+            cfg_fname = os.path.join(cwd, cfg_fname)
+        if not os.path.isabs(log_fname):
+            log_fname = os.path.join(cwd, log_fname)
+        if not os.path.isabs(test_fname):
+            test_fname = os.path.join(cwd, test_fname)
+
+        if q_idx is not None:
+            assert isinstance(q_idx, int)
+            log_fname = log_fname + "_Q" + str(q_idx).zfill(4)
 
         # Config
         cfg = self.gen_predict_cfg(test_fname,
@@ -167,16 +199,30 @@ class PxS(object):
                                script_prefix="",
                                config_prefix="-c")
 
-        # Run
-        p = run_process(cmd, monitors=mon, cwd=self.pxs_dir)
+        msg = """
+        Generated command: {}
+        """.format(cmd)
+        debug_print(msg, V=VERBOSITY)
 
-        if p == 0:
+        # Run
+        tick = default_timer()
+        p = run_process(cmd, monitors=mon, cwd=self.pxs_dir)
+        tock = default_timer()
+        self.s['model_data']['inf_time'] = tock - tick
+
+        try:
             os.remove(cfg_fname)
-            #self.drop_log(log_fname)
+            self.drop_log(log_fname)
 
             result = pd.read_csv(cfg["out_fname"], header=None)
-            #os.remove(cfg["out_fname"])
+            os.remove(cfg["out_fname"])
 
             return result.values
-        else:
-            return p
+
+        except FileNotFoundError as e:
+            msg = """
+            Error:                                  {}
+            Return code from .backend/predict:      {}                         
+            """.format(e.args[-1], p)
+            print(msg)
+            return -1
